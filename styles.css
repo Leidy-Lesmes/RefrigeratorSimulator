@@ -1,0 +1,60 @@
+@import 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css';
+@import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
+body {
+  font-family: Arial, sans-serif;
+  width: 99vw;
+  height: 95vh;
+  object-fit: cover;
+  background-image: url(./images/kitchen.avif);
+  background-size: cover;
+  background-position: center;
+}
+header>h1{
+  text-align: center;
+  background-color: #ebe9e9;
+  border-radius: 10px;
+  padding: 10px;
+}
+.body{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 80%;
+}
+.simulator-var, 
+.simulator-result{
+  font-family: Arial, sans-serif;
+  background-color: rgba(235, 233, 233, .9);
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  border-radius: 15px;
+  padding: 20px;
+}
+.fridge{
+  height: 100%;
+}
+.fridge>img{
+  height: 60vh;
+  object-fit: cover;
+  margin: 50% auto 0;
+}
+.simulator-container {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+input {
+  margin: 10px 0;
+}
+#btnCalculate{
+  background-color: #00b327;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+}

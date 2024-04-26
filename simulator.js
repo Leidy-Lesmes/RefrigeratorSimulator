@@ -21,7 +21,7 @@ function calculate() {
     const work = power * time;
     
     // Update the DOM with the calculated values
-    document.getElementById('time').textContent = `Time to reach fridge temperature (s): ${time.toFixed(2)}`;
-    document.getElementById('power').textContent = `Power required (W): ${power.toFixed(2)}`;
-    document.getElementById('work').textContent = `Work done (J): ${work.toFixed(2)}`;
+    document.getElementById('time-result').textContent = `${time.toFixed(2)}`;
+    document.getElementById('power-result').textContent = `${power.toFixed(2)}`;
+    document.getElementById('work-result').textContent = `${work.toFixed(2)}`;
   }
