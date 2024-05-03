@@ -14,31 +14,62 @@
       <div class="simulator-var">
         <h2 class="modal-title">Datos de Entrada</h2>
         
-        <label for="initial-temp">Initial Water Temperature (°C):</label>
-        <input type="number" id="initial-temp" placeholder="e.g. 25">
+        <label for="substance">Sustancia:</label>
+        <select name="substance" id="substance" onchange="updateImgSubstance(this)">
+          <option disabled selected value="null">Seleccione la sustancia</option>
+          <option value="water">Agua</option>
+          <option value="apple">Manzana</option>
+          <option value="banana">Platano</option>
+          <option value="orange">Naranja</option>
+          <option value="grape">Uva</option>
+          <option value="strawberry">Fresa</option>
+        </select>
         
-        <label for="fridge-temp">Refrigerator Temperature (°C):</label>
-        <input type="number" id="fridge-temp" placeholder="e.g. 3">
-        
-        <label for="cop">COP of Refrigerator:</label>
-        <input type="number" id="cop" placeholder="e.g. 2.5">
+        <label for="initial-temp">Temperatura Inicial (°C):</label>
+        <input type="number" id="initial-temp" placeholder="">
   
-        <button id="btnCalculate" onclick="calculate()">Calculate</button>
+        <button id="btnCalculate" onclick="calculate()" >Calculate</button>
       </div>
       <div class="fridge">
+        <div class="substance">
+          <img id="imgSubstance" src="./images/default.jpg" alt="">
+        </div>
         <img id="fridgeImg" src="./images/fridge.png" alt="fridge">
-      </div>
-      <div class="simulator-result">
-        <h2 class="modal-title">Resultados</h2>
 
-        <p id="time">Time to reach fridge temperature (s):</p>
-        <p id="time-result"></p>
-        <p id="power">Power required (W):</p>
-        <p id="power-result"></p>
-        <p id="work">Work done (J):</p>
-        <p id="work-result"></p>
+      </div>
+      <div class="rigth">
+        <div class="constants">
+          <h2>Constantes utilizados</h2>
+          <p id="cop-value">COP: `${cop}`</p>
+          <p id="power-value">Power: </p>
+          <p id="mass-value">Masa: </p>
+        </div>
+        <div class="simulator-result">
+          <h2 class="modal-title">Resultados</h2>
+  
+          <p id="time">Tiempo para congelar sustancia (s):</p>
+          <p id="time-result">---</p>
+        </div>
       </div>
     </div>
+
+
+    <div class="modal fade" id="deleteLastMessage" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="deleteModelLabel">Advertencia</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <p id="messageAdvertence">Es necesario que seleccione una sustancia</p>
+               <button id="btnOk" type="button" class="btn btn-primary" lass="btn btn-danger" data-dismiss="modal">OK</button>
+            </div>
+         </div>
+      </div>
+  </div>
     
     <script src="./simulator.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
