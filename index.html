@@ -27,6 +27,11 @@
         
         <label for="initial-temp">Temperatura Inicial (°C):</label>
         <input type="number" id="initial-temp" placeholder="">
+
+        <div class="massValue" id="massValue">
+          <label for="mass-value">Masa (Kg):</label>
+          <input type="number" id="mass-value" placeholder="">
+        </div>
   
         <button id="btnCalculate" onclick="calculate()" >Calculate</button>
       </div>
@@ -35,7 +40,6 @@
           <img id="imgSubstance" src="./images/default.jpg" alt="">
         </div>
         <img id="fridgeImg" src="./images/fridge.png" alt="fridge">
-
       </div>
       <div class="rigth">
         <div class="constants">
@@ -69,6 +73,14 @@
             </div>
          </div>
       </div>
+  </div>
+
+  <button id="video-button" type="button" class="btn btn-success">Click to view video</button>
+  <div id="video-container" style="display: none;">
+    <iframe width="880" height="550" src="https://www.youtube.com/embed/_CprvYrq1hA?si=MCjESY1i2XjHxuHt"
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </div>
     
     <script src="./simulator.js"></script>
