@@ -79,15 +79,15 @@ function calculate() {
       document.getElementById('time-result').textContent = `${result.toFixed(2)} s`;
   }
 
-  function selectHeatCapacity(substance){
-    let heatCapacity;
-    opciones.forEach((opcion, index) => {
-      if(substance === opcion.nombre){
-        heatCapacity = opcion.capacidadCalorifica;
-      }
-    });
-    return heatCapacity;
-  }
+function selectHeatCapacity(substance){
+  let heatCapacity;
+  opciones.forEach((opcion, index) => {
+    if(substance === opcion.nombre){
+      heatCapacity = opcion.capacidadCalorifica;
+    }
+  });
+  return heatCapacity;
+}
 
   function selectTemperature(substance){
     let temperature;
