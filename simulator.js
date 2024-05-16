@@ -1,46 +1,48 @@
 const cop = 5.00;
 const power = 500;
-document.getElementById('cop-value').textContent = `COP: ${cop}`;
-document.getElementById('power-value').textContent = `COP: ${power}`;
 const videoButton = document.getElementById('video-button');
 const videoContainer = document.getElementById('video-container');
+const imgSubstance = document.getElementById('imgSubstance');
+const imgFridge = document.getElementById('fridgeImg');
+const temp = document.getElementById('initial-temp');
+var tempText = document.getElementById('temp-text');
+var initialTemp = 0;
 const opciones = [
   { nombre: "water", capacidadCalorifica: 4186, masa:0.5, temperature: 0, img: "./images/water.png" },
   { nombre: "apple", capacidadCalorifica: 3350, masa: 0.18, temperature: -1.5, img: "./images/apple.png"  },
-  { nombre: "banana", capacidadCalorifica: 3350, masa: 0.18, temperature: -1.5, img: "./images/bananas.jpg"  },
-  { nombre: "orange", capacidadCalorifica: 3790, masa: 0.25, temperature: -1.8, img: "./images/orange.jpg"  },
-  { nombre: "grape", capacidadCalorifica: 3600, masa: 0.7, temperature: -1.8, img: "./images/grapes.jpg"  },
-  { nombre: "strawberry", capacidadCalorifica: 3780, masa: 0.02, temperature: -0.78, img: "./images/strawberry.jpg" }
+  { nombre: "banana", capacidadCalorifica: 3350, masa: 0.18, temperature: -1.5, img: "./images/bananas.png"  },
+  { nombre: "orange", capacidadCalorifica: 3790, masa: 0.25, temperature: -1.8, img: "./images/orange.png"  },
+  { nombre: "grape", capacidadCalorifica: 3600, masa: 0.7, temperature: -1.8, img: "./images/grapes.png"  },
+  { nombre: "strawberry", capacidadCalorifica: 3780, masa: 0.02, temperature: -0.78, img: "./images/strawberry.png"}
 ];
-var imgSubstance = document.getElementById('imgSubstance');
+var subtanceImg;
+document.getElementById('cop-value').textContent = `COP: ${cop}`;
+document.getElementById('power-value').textContent = `COP: ${power}`;
+
+temp.oninput = ()=>{
+  tempText.innerHTML = `${temp.value} °C`;
+  initialTemp = temp.value;
+}
 
 function calculate() {
-    const initialTemp = parseFloat(document.getElementById('initial-temp').value);
     const substance = document.getElementById('substance');
     var substanceName = substance.options[substance.selectedIndex].value;
     const mass = selectMass(substanceName);
     if (substanceName === "null"){
-      document.getElementById('messageAdvertence').textContent = "Es necesario que seleccione una sustancia";
-      $('#deleteLastMessage').modal('show');
+      modal("Es necesario que seleccione una sustancia");
     } else if(Number.isNaN(initialTemp)){
-      document.getElementById('messageAdvertence').textContent = "Es necesario que suministre la temperatura inicial";
-      $('#deleteLastMessage').modal('show');
+      modal("Es necesario que suministre la temperatura inicial");
     } else if(Number.isNaN(mass)){
-      document.getElementById('messageAdvertence').textContent = "Es necesario que suministre la masa de la sustancia";
-      $('#deleteLastMessage').modal('show');
+      modal("Es necesario que suministre la masa de la sustancia");
     } else{
-      operations(substanceName, initialTemp, mass);
+      imgFridge.setAttribute("src", "./images/fridge1.png");
+      imgSubstance.setAttribute("src", "./images/clock.gif");
+      setTimeout(function(){
+        imgFridge.setAttribute("src", "./images/fridge.png");
+        imgSubstance.setAttribute("src", subtanceImg);
+        operations(substanceName, initialTemp, mass);
+      }, 3000);
     }
-  }
-
-  function selectHeatCapacity(substance){
-    let heatCapacity;
-    opciones.forEach((opcion, index) => {
-      if(substance === opcion.nombre){
-        heatCapacity = opcion.capacidadCalorifica;
-      }
-    });
-    return heatCapacity;
   }
 
   function selectMass(substance){
@@ -57,14 +59,9 @@ function calculate() {
     return mass;
   }
 
-  function updateImgSubstance(substance){
-    opciones.forEach((opcion) => {
-      if(substance.value === opcion.nombre){
-        imgSubstance.setAttribute("src", `${opcion.img}`);
-        document.getElementById('mass-value').textContent = `Masa: ${opcion.masa} Kg`;
-      }
-    });
-    showMassInput(substance);
+  function modal(text){
+    document.getElementById('messageAdvertence').textContent = text;
+    $('#deleteLastMessage').modal('show');
   }
 
   function operations(substanceName, initialTemp, mass){
@@ -81,17 +78,15 @@ function calculate() {
       }
       document.getElementById('time-result').textContent = `${result.toFixed(2)} s`;
   }
-  
-  function showMassInput(substance){
-    var item = document.getElementById("massValue");
-    if(!item.classList.contains('nonDisplay') && substance.value === "water"){
-      document.querySelector('.massValue').classList.toggle('nonDisplay');
-    } else {
-      document.querySelector('.massValue').classList.toggle('nonDisplay');
-      if(item.classList.contains('nonDisplay')){
-        document.querySelector('.massValue').classList.toggle('nonDisplay');
+
+  function selectHeatCapacity(substance){
+    let heatCapacity;
+    opciones.forEach((opcion, index) => {
+      if(substance === opcion.nombre){
+        heatCapacity = opcion.capacidadCalorifica;
       }
-    }
+    });
+    return heatCapacity;
   }
 
   function selectTemperature(substance){
@@ -104,7 +99,30 @@ function calculate() {
     return temperature;
   }
 
-  videoButton.addEventListener('click', () => {
+  function updateImgSubstance(substance){
+    opciones.forEach((opcion) => {
+      if(substance.value === opcion.nombre){
+        subtanceImg = opcion.img;
+        imgSubstance.setAttribute("src", `${opcion.img}`);
+        document.getElementById('mass-value').textContent = `Masa: ${opcion.masa} Kg`;
+      }
+    });
+    showMassInput(substance);
+  }
+
+  function showMassInput(substance){
+    var item = document.getElementById("massValue");
+    if(!item.classList.contains('nonDisplay') && substance.value === "water"){
+      document.querySelector('.massValue').classList.toggle('nonDisplay');
+    } else {
+      document.querySelector('.massValue').classList.toggle('nonDisplay');
+      if(item.classList.contains('nonDisplay')){
+        document.querySelector('.massValue').classList.toggle('nonDisplay');
+      }
+    }
+  }
+
+  videoButton.addEventListener('click', (event) => {
     if (videoContainer.style.display === 'none' || videoContainer.style.display === 'block') {
       videoContainer.style.top = '50%';
       videoContainer.style.left = '50%';
