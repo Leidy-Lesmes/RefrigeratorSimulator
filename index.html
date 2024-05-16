@@ -26,16 +26,21 @@
         </select>
         
         <label for="initial-temp">Temperatura Inicial (°C):</label>
-        <input type="number" id="initial-temp" placeholder="">
+        <input type="range" min="-3" value="0" max="100" id="initial-temp" placeholder="">
+        <label id="temp-text">0 °C</label>
+
+        <div class="massValue" id="massValue">
+          <label for="mass-value">Masa (Kg):</label>
+          <input type="number" min="0" max="100" id="mass-value" placeholder="">
+        </div>
   
         <button id="btnCalculate" onclick="calculate()" >Calculate</button>
       </div>
       <div class="fridge">
         <div class="substance">
-          <img id="imgSubstance" src="./images/default.jpg" alt="">
+          <img id="imgSubstance" src="./images/default.png" alt="">
         </div>
         <img id="fridgeImg" src="./images/fridge.png" alt="fridge">
-
       </div>
       <div class="rigth">
         <div class="constants">
@@ -70,8 +75,17 @@
          </div>
       </div>
   </div>
+
+  <button id="video-button" type="button" class="btn btn-success">Click to view video</button>
+  <div id="video-container" style="display: none;">
+    <iframe width="880" height="550" src="https://www.youtube.com/embed/_CprvYrq1hA?si=MCjESY1i2XjHxuHt"
+      title="YouTube video player" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
     
     <script src="./simulator.js"></script>
+    <script src="./input.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>

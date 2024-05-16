@@ -1,134 +1,140 @@
-
 const cop = 5.00;
 const power = 500;
+const videoButton = document.getElementById('video-button');
+const videoContainer = document.getElementById('video-container');
+const imgSubstance = document.getElementById('imgSubstance');
+const imgFridge = document.getElementById('fridgeImg');
+const temp = document.getElementById('initial-temp');
+var tempText = document.getElementById('temp-text');
+var initialTemp = 0;
+const opciones = [
+  { nombre: "water", capacidadCalorifica: 4186, masa:0.5, temperature: 0, img: "./images/water.png" },
+  { nombre: "apple", capacidadCalorifica: 3350, masa: 0.18, temperature: -1.5, img: "./images/apple.png"  },
+  { nombre: "banana", capacidadCalorifica: 3350, masa: 0.18, temperature: -1.5, img: "./images/bananas.png"  },
+  { nombre: "orange", capacidadCalorifica: 3790, masa: 0.25, temperature: -1.8, img: "./images/orange.png"  },
+  { nombre: "grape", capacidadCalorifica: 3600, masa: 0.7, temperature: -1.8, img: "./images/grapes.png"  },
+  { nombre: "strawberry", capacidadCalorifica: 3780, masa: 0.02, temperature: -0.78, img: "./images/strawberry.png"}
+];
+var subtanceImg;
 document.getElementById('cop-value').textContent = `COP: ${cop}`;
 document.getElementById('power-value').textContent = `COP: ${power}`;
-const opciones = [
-  { nombre: "water", capacidadCalorifica: 4186, masa:0.5, img: "./images/water.png" },
-  { nombre: "apple", capacidadCalorifica: 2680, masa: 0.18, img: "./images/apple.png"  },
-  { nombre: "banana", capacidadCalorifica: 3.36, masa: 0.15, img: "./images/bananas.jpg"  },
-  { nombre: "orange", capacidadCalorifica: 3.43, masa: 0.25, img: "./images/orange.jpg"  },
-  { nombre: "grape", capacidadCalorifica: 3.90, masa: 0.7, img: "./images/grapes.jpg"  },
-  { nombre: "strawberry", capacidadCalorifica: 3.29, masa: 0.02, img: "./images/strawberry.jpg" }
-];
-var imgSubstance = document.getElementById('imgSubstance');
+
+temp.oninput = ()=>{
+  tempText.innerHTML = `${temp.value} °C`;
+  initialTemp = temp.value;
+}
 
 function calculate() {
-
-    const initialTemp = parseFloat(document.getElementById('initial-temp').value);
-    console.log(initialTemp);
     const substance = document.getElementById('substance');
     var substanceName = substance.options[substance.selectedIndex].value;
+    const mass = selectMass(substanceName);
     if (substanceName === "null"){
-      document.getElementById('messageAdvertence').textContent = "Es necesario que seleccione una sustancia";
-      $('#deleteLastMessage').modal('show');
+      modal("Es necesario que seleccione una sustancia");
     } else if(Number.isNaN(initialTemp)){
-      document.getElementById('messageAdvertence').textContent = "Es necesario que suministre la temperatura inicial";
-      $('#deleteLastMessage').modal('show');
+      modal("Es necesario que suministre la temperatura inicial");
+    } else if(Number.isNaN(mass)){
+      modal("Es necesario que suministre la masa de la sustancia");
     } else{
-      operations(substanceName, initialTemp);
+      imgFridge.setAttribute("src", "./images/fridge1.png");
+      imgSubstance.setAttribute("src", "./images/clock.gif");
+      setTimeout(function(){
+        imgFridge.setAttribute("src", "./images/fridge.png");
+        imgSubstance.setAttribute("src", subtanceImg);
+        operations(substanceName, initialTemp, mass);
+      }, 3000);
     }
-  }
-
-  function selectHeatCapacity(substance){
-    let heatCapacity;
-    opciones.forEach((opcion, index) => {
-      if(substance === opcion.nombre){
-        heatCapacity = opcion.capacidadCalorifica;
-      }
-    });
-    return heatCapacity;
   }
 
   function selectMass(substance){
     let mass;
-    opciones.forEach((opcion, index) => {
-      if(substance === opcion.nombre){
-       mass = opcion.masa;
-      }
-    });
+    if(substance !== "water"){
+      mass = parseFloat(document.getElementById('mass-value').value);
+    } else{
+      opciones.forEach((opcion, index) => {
+        if(substance === "water" && opcion.nombre === "water"){
+         mass = opcion.masa;
+        }
+      });
+    }
     return mass;
   }
 
-  function updateImgSubstance(substance){
-    opciones.forEach((opcion) => {
-      if(substance.value === opcion.nombre){
-        imgSubstance.setAttribute("src", `${opcion.img}`);
-        document.getElementById('mass-value').textContent = `Masa: ${opcion.masa} Kg`;
-      }
-    });
+  function modal(text){
+    document.getElementById('messageAdvertence').textContent = text;
+    $('#deleteLastMessage').modal('show');
   }
 
-  function operations(substanceName, initialTemp){
+  function operations(substanceName, initialTemp, mass){
     var heatCapacity = selectHeatCapacity(substanceName);
-      var mass = selectMass(substanceName);
-      updateImgSubstance(substanceName);
-
-      var result = ((mass)*((heatCapacity*-initialTemp)-(3.33*Math.pow(10, 5)))) / (power*cop);
+      var result = 0;
+      if(substanceName === "water"){
+        result = ((mass)*((heatCapacity*-initialTemp)-(3.33*Math.pow(10, 5)))) / (power*cop);
+      } else {
+        var temperature = selectTemperature(substanceName);
+        result = ((mass)*(heatCapacity*(temperature-initialTemp))) / (power*cop);;
+      }
       if(result<0){
         result = result*-1;
       }
       document.getElementById('time-result').textContent = `${result.toFixed(2)} s`;
   }
-=======
 
-function calcularTiempoCongelamiento(masa, temperaturaInicial, capacidadCalorifica) {
-  // Constantes
-  const COP = 5.00; // Coeficiente de Desempeño del refrigerador
-  const potencia = 500; // Potencia de entrada del refrigerador en vatios
-  const Lf = 3.33e5; // Calor latente de fusión del agua en J/kg
-
-  // Calcular la cantidad total de calor absorbido por el agua o la fruta
-  const deltaT = 0 - temperaturaInicial; // Cambio de temperatura
-  let c;
-  if (capacidadCalorifica === "agua") {
-    c = 4186; // Capacidad calorífica específica del agua en J/kg°C
-  } else {
-    // Utilizamos la capacidad calorífica específica de la fruta seleccionada
-    c = capacidadCalorifica;
-  }
-  const Qc = masa * (c * deltaT - Lf); // Calor absorbido en J
-
-  // Calcular la cantidad de trabajo realizado por el refrigerador
-  const W = Math.abs(Qc) / COP; // Trabajo realizado en J
-
-  // Calcular el tiempo necesario para realizar el trabajo
-  const tiempo = W / potencia; // Tiempo en segundos
-
-  return tiempo;
+function selectHeatCapacity(substance){
+  let heatCapacity;
+  opciones.forEach((opcion, index) => {
+    if(substance === opcion.nombre){
+      heatCapacity = opcion.capacidadCalorifica;
+    }
+  });
+  return heatCapacity;
 }
 
-// Ejemplo de uso
-const opciones = [
-  { nombre: "Agua", capacidadCalorifica: "agua" },
-  { nombre: "Manzana", capacidadCalorifica: 3.33 }, // Capacidad calorífica en J/kg°C
-  { nombre: "Plátano", capacidadCalorifica: 3.36 },
-  { nombre: "Naranja", capacidadCalorifica: 3.43 },
-  { nombre: "Uva", capacidadCalorifica: 3.90 },
-  { nombre: "Fresa", capacidadCalorifica: 3.29 }
-];
-
-const readline = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-console.log("Seleccione la fruta o agua para calcular el tiempo de congelamiento:");
-opciones.forEach((opcion, index) => {
-  console.log(`${index + 1}. ${opcion.nombre}`);
-});
-readline.question("Ingrese el número correspondiente: ", (index) => {
-  index = parseInt(index);
-  if (index >= 1 && index <= opciones.length) {
-    const seleccion = opciones[index - 1];
-    const masa = 0.5; // kg
-    const temperaturaInicial = 20.0; // °C
-
-    const tiempoCongelamiento = calcularTiempoCongelamiento(masa, temperaturaInicial, seleccion.capacidadCalorifica);
-    console.log(`Tiempo de congelamiento de ${seleccion.nombre}: ${tiempoCongelamiento.toFixed(2)} segundos`);
-  } else {
-    console.log("Selección no válida. Por favor, ingrese un número válido.");
+  function selectTemperature(substance){
+    let temperature;
+    opciones.forEach((opcion, index) => {
+      if(substance === opcion.nombre){
+        temperature = opcion.masa;
+      }
+    });
+    return temperature;
   }
-  readline.close();
-});
 
+  function updateImgSubstance(substance){
+    opciones.forEach((opcion) => {
+      if(substance.value === opcion.nombre){
+        subtanceImg = opcion.img;
+        imgSubstance.setAttribute("src", `${opcion.img}`);
+        document.getElementById('mass-value').textContent = `Masa: ${opcion.masa} Kg`;
+      }
+    });
+    showMassInput(substance);
+  }
+
+  function showMassInput(substance){
+    var item = document.getElementById("massValue");
+    if(!item.classList.contains('nonDisplay') && substance.value === "water"){
+      document.querySelector('.massValue').classList.toggle('nonDisplay');
+    } else {
+      document.querySelector('.massValue').classList.toggle('nonDisplay');
+      if(item.classList.contains('nonDisplay')){
+        document.querySelector('.massValue').classList.toggle('nonDisplay');
+      }
+    }
+  }
+
+  videoButton.addEventListener('click', (event) => {
+    if (videoContainer.style.display === 'none' || videoContainer.style.display === 'block') {
+      videoContainer.style.top = '50%';
+      videoContainer.style.left = '50%';
+      videoContainer.style.transform = 'translate(-50%, -50%)';
+      videoContainer.style.display = 'block';
+      videoButton.style.display = 'none';
+    }
+  });
+  
+  document.body.addEventListener('click', (event) => {
+    if (event.target!== videoButton && event.target!== videoContainer.firstChild) {
+      videoContainer.style.display = 'none';
+      videoButton.style.display = 'block';
+    }
+  });
