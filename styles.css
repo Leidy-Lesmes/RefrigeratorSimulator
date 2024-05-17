@@ -5,9 +5,18 @@ body {
   width: 99vw;
   height: 95vh;
   object-fit: cover;
-  background-image: url(./images/kitchen.avif);
+  background-image: url(./images/k.png);
   background-size: cover;
   background-position: center;
+}
+body {
+  font-family: 'Gochi Hand', cursive;
+  color: #4a3f35; /* Dark brown for main text */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Gochi Hand', cursive;
+  color: #8c6e57; /* Warm brown for headings */
 }
 header>h1{
   text-align: center;
@@ -45,19 +54,47 @@ header>h1{
   position: absolute;
   left: -20%;
 }
-.fridge{
-  height: 100%;
+
+.closedFridge {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-.substance>img{
-  height: 60px;
-  width: 60px;
-  object-fit: cover;
+
+.closedFridge > img {
+  max-height: 80%;
+  max-width: 80%;
+  object-fit: contain;
+}
+
+.fridge {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.fridge > img {
+  max-height: 80%;
+  max-width: 80%;
+  object-fit: contain;
+}
+
+.substance {
   position: absolute;
-  bottom:44%;
-  left: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-150%, -50%);
+  width: 10%;
+  height: auto;
 }
-.fridge>img{
-  height: 60vh;
+
+.substance > img {
+  width: 150%;
+  height: auto;
   object-fit: cover;
   margin: 50% auto 0;
 }
@@ -70,28 +107,44 @@ input,
 select {
   margin: 10px 0;
 }
+@media screen and (max-width: 768px) {
+  .substance {
+    left: 10%;
+  }
+}
 input,
 select,
 .massValue>input{
   width: 180px;
 }
 #btnCalculate{
-  background-color: #00b327;
-  color: #ffffff;
+  background-color: #cf9775; /* Soft reddish-brown for button background */
+  color: #fff; /* White text color for buttons */
   border: none;
   padding: 10px 20px;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 #time-result{
-  border: 1px;
-  padding: 5px;
-  background-color: #ffffff;
+  background-color: #cf9775; /* Soft reddish-brown for button background */
+  color: #fff; /* White text color for buttons */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
 }
 #btnOk{
   float: right;
-  background-color: #00b327;
+  background-color: #cf9775; /* Soft reddish-brown for button background */
+  color: #fff; /* White text color for buttons */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 #video-container {
   position: fixed;
@@ -108,6 +161,13 @@ select,
 }
 
 #video-button {
+  background-color: #cf9775; /* Soft reddish-brown for button background */
+  color: #fff; /* White text color for buttons */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
   position: fixed;
   bottom: 5vh;
   right: 5vh; 
