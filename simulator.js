@@ -33,10 +33,10 @@ function calculate() {
     } else if(Number.isNaN(mass)){
       modal("Es necesario que suministre la masa de la sustancia");
     } else{
-      imgFridge.setAttribute("src", "./images/fridge1.png");
+      imgFridge.setAttribute("src", "./images/closedFridge.png");
       imgSubstance.setAttribute("src", "./images/clock.gif");
       setTimeout(function(){
-        imgFridge.setAttribute("src", "./images/fridge.png");
+        imgFridge.setAttribute("src", "./images/Fridge.png");
         imgSubstance.setAttribute("src", subtanceImg);
         operations(substanceName, initialTemp, mass);
       }, 3000);
