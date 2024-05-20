@@ -1,11 +1,10 @@
 const cop = 5.00;
 const power = 500;
-
+var initialTemp = 0;
 const imgSubstance = document.getElementById('imgSubstance');
 const imgFridge = document.getElementById('fridgeImg');
 const temp = document.getElementById('initial-temp');
 var tempText = document.getElementById('temp-text');
-var initialTemp = 0;
 const opciones = [
   { nombre: "water", capacidadCalorifica: 4186, masa:0.5, temperature: 0, img: "./images/water.png" },
   { nombre: "apple", capacidadCalorifica: 3350, masa: 0.18, temperature: -1.5, img: "./images/apple.png"  },

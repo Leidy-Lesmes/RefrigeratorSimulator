@@ -43,9 +43,10 @@ header>h1{
 }
 .nonDisplay{
   position: absolute;
-  left: -20%;
+  left: -50%;
 }
 .fridge{
+  position: relative;
   height: 100%;
 }
 .substance>img{
@@ -53,8 +54,8 @@ header>h1{
   width: 60px;
   object-fit: cover;
   position: absolute;
-  bottom:44%;
-  left: 40%;
+  bottom:42%;
+  left: 20%;
 }
 .fridge>img{
   height: 60vh;
@@ -92,4 +93,23 @@ select,
 #btnOk{
   float: right;
   background-color: #00b327;
+}
+@media screen and (max-width:400px) {
+  .body{
+    flex-direction: column;
+  }
+  .fridge{
+    height: auto;
+    max-width: 350px;
+  }
+  .fridge>img{
+    /* height: auto; */
+    width: 300px;
+    height: auto;
+    margin: 50% auto 0;
+    object-fit: cover;
+  }
+  .substance>img{
+    bottom:50%;
+  }
 }
