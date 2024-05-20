@@ -1,7 +1,6 @@
 const cop = 5.00;
 const power = 500;
-const videoButton = document.getElementById('video-button');
-const videoContainer = document.getElementById('video-container');
+
 const imgSubstance = document.getElementById('imgSubstance');
 const imgFridge = document.getElementById('fridgeImg');
 const temp = document.getElementById('initial-temp');
@@ -121,20 +120,3 @@ function selectHeatCapacity(substance){
       }
     }
   }
-
-  videoButton.addEventListener('click', (event) => {
-    if (videoContainer.style.display === 'none' || videoContainer.style.display === 'block') {
-      videoContainer.style.top = '50%';
-      videoContainer.style.left = '50%';
-      videoContainer.style.transform = 'translate(-50%, -50%)';
-      videoContainer.style.display = 'block';
-      videoButton.style.display = 'none';
-    }
-  });
-  
-  document.body.addEventListener('click', (event) => {
-    if (event.target!== videoButton && event.target!== videoContainer.firstChild) {
-      videoContainer.style.display = 'none';
-      videoButton.style.display = 'block';
-    }
-  });
