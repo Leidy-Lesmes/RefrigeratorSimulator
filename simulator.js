@@ -15,7 +15,7 @@ const opciones = [
 ];
 var subtanceImg;
 document.getElementById('cop-value').textContent = `COP: ${cop}`;
-document.getElementById('power-value').textContent = `COP: ${power}`;
+document.getElementById('power-value').textContent = `Potencia: ${power}`;
 
 temp.oninput = ()=>{
   tempText.innerHTML = `${temp.value} °C`;
@@ -102,7 +102,7 @@ function selectHeatCapacity(substance){
       if(substance.value === opcion.nombre){
         subtanceImg = opcion.img;
         imgSubstance.setAttribute("src", `${opcion.img}`);
-        document.getElementById('mass-value').textContent = `Masa: ${opcion.masa} Kg`;
+        document.getElementById('mass-value').textContent = `Masa: 0.5 Kg`;
       }
     });
     showMassInput(substance);
