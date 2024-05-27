@@ -18,11 +18,22 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Gochi Hand', cursive;
   color: #8c6e57; /* Warm brown for headings */
 }
-header>h1{
+header{
   text-align: center;
   background-color: #ebe9e9;
   border-radius: 10px;
   padding: 10px;
+  padding-left: 25%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.btn-teory {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #444;
+    border-radius: 5px;
 }
 .body{
   display: flex;
