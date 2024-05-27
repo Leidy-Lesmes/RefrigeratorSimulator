@@ -36,7 +36,7 @@ function calculate() {
       imgFridge.setAttribute("src", "./images/closedFridge.png");
       imgSubstance.setAttribute("src", "./images/clock.gif");
       setTimeout(function(){
-        imgFridge.setAttribute("src", "./images/Fridge.png");
+        imgFridge.setAttribute("src", "./images/fridge.png");
         imgSubstance.setAttribute("src", subtanceImg);
         operations(substanceName, initialTemp, mass);
       }, 3000);
